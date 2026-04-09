@@ -1,0 +1,84 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
+      ]
+    }
+  ],
+  "env": {
+    "VITE_SUPABASE_URL": "@supabase-url",
+    "VITE_SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "VITE_PADDLE_ENV": "@paddle-env",
+    "VITE_PADDLE_CLIENT_TOKEN": "@paddle-client-token",
+    "VITE_PADDLE_PRICE_ID": "@paddle-price-id",
+    "VITE_FRONTEND_URL": "@frontend-url"
+  },
+  "build": {
+    "env": {
+      "SUPABASE_URL": "@supabase-url",
+      "SUPABASE_SERVICE_KEY": "@supabase-service-key",
+      "PADDLE_API_KEY": "@paddle-api-key",
+      "PADDLE_WEBHOOK_SECRET": "@paddle-webhook-secret",
+      "POSTMARK_API_TOKEN": "@postmark-api-token",
+      "TELEGRAM_BOT_TOKEN": "@telegram-bot-token",
+      "ADMIN_API_KEY": "@admin-api-key",
+      "FRONTEND_URL": "@frontend-url"
+    }
+  },
+  "functions": {
+    "api/**/*.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}
